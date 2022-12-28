@@ -47,9 +47,15 @@ CKEditor.builtinPlugins = [
 ];
 // Editor configuration.
 CKEditor.defaultConfig = {
+
     language: 'vi',
     htmlSupport: {
-        allow: [ /* HTML features to allow */ ],
+        allow: [ /* HTML features to allow */ {
+            name: /.*/,
+            attributes: true,
+            classes: true,
+            styles: true
+        }],
         disallow: [ /* HTML features to disallow */ ]
     },
     toolbar: {
@@ -80,28 +86,51 @@ CKEditor.defaultConfig = {
             Authorization: 'Bearer <JSON Web Token>'
         }
     },
+    // image: {
+    //     resizeOptions: [{
+    //             name: 'resizeImage:original',
+    //             value: null,
+    //             icon: 'original'
+    //         },
+    //         {
+    //             name: 'resizeImage:25',
+    //             value: '25',
+    //             icon: 'small'
+    //         },
+    //         {
+    //             name: 'resizeImage:50',
+    //             value: '50',
+    //             icon: 'medium'
+    //         },
+    //         {
+    //             name: 'resizeImage:75',
+    //             value: '75',
+    //             icon: 'large'
+    //         }
+    //     ]
+    // }
     image: {
+        resizeUnit: 'px',
         resizeOptions: [{
                 name: 'resizeImage:original',
-                value: null,
-                icon: 'original'
+                label: 'Original',
+                value: null
             },
             {
-                name: 'resizeImage:25',
-                value: '25',
-                icon: 'small'
+                name: 'resizeImage:100',
+                label: '100px',
+                value: '100'
             },
             {
-                name: 'resizeImage:50',
-                value: '50',
-                icon: 'medium'
-            },
-            {
-                name: 'resizeImage:75',
-                value: '75',
-                icon: 'large'
+                name: 'resizeImage:200',
+                label: '200px',
+                value: '200'
             }
         ]
-    }
+    },
+    forcePasteAsPlainText: true,
+    autoParagraph: false,
+    enterMode: 2,
+    shiftEnterMode: 2
 }
 export default CKEditor;

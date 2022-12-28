@@ -1,15 +1,16 @@
 'use strict';
-const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
+const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const path = require('path');
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
 const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     mode: 'production',
     entry: {
         app: './src/app.js',
     },
-    plugins:[
-        new CKEditorWebpackPlugin( {
+    plugins: [
+        new CKEditorWebpackPlugin({
             // The main language that will be built into the main bundle.
             language: 'vi',
 
@@ -19,7 +20,7 @@ module.exports = {
             additionalLanguages: 'all',
 
             // For more advanced options see https://github.com/ckeditor/ckeditor5-dev/tree/master/packages/ckeditor5-dev-webpack-plugin.
-        } ),
+        }), new MiniCssExtractPlugin(),
     ],
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -33,22 +34,24 @@ module.exports = {
         minimizer: [new TerserPlugin({
             terserOptions: {
                 format: {
-                  comments: false,
+                    comments: false,
                 },
             },
             extractComments: false,
         })],
-      },
+    },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.svg$/,
                 use: ['raw-loader']
             },
+            // {
+            //     test: /\.css$/,
+            //     use: [MiniCssExtractPlugin.loader, "css-loader"],
+            // },
             {
                 test: /\.css$/,
-                use: [
-                    {
+                use: [{
                         loader: 'style-loader',
                         options: {
                             injectType: 'singletonStyleTag',
